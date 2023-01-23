@@ -26,11 +26,12 @@ export function removeEmptyPairs(pairs) {
 }
 
 export function getPathPairs(urlParts, urlInstanceParts){
-  const pairs = urlParts.map(
-      (key, index) => key.startsWith(':')
+  const filterOutNonVariablePathParts = (key, index) => {
+    return key.startsWith(':')
       ? [key.replace(":",""), urlInstanceParts[index]]
-      : []
-  )
+      : [];
+  }
+  const pairs = urlParts.map( filterOutNonVariablePathParts )
   return pairs;
 }
 
